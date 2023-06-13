@@ -22,10 +22,14 @@ function Navbar() {
       <Link to="/login">
       <button type="button" className="btn btn-success m-3">Login As a Admin</button>
       </Link>
-      <button type="button" className="btn btn-success m-3">Login As a Nominee</button>
 
+      <Link to="/login">
+      <button type="button" className="btn btn-success m-3">Login As a Nominee</button>
+      </Link>
+      <Link to="/login">
         <button type="button" className="btn btn-success m-3">Login As a Voter</button>
-    </div>
+        </Link>
+        </div>
     </div>
   </nav></div>
   )
