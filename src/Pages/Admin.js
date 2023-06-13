@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom'
 import Voters from '../Components/Voters';
 import { useState } from 'react';
 
-function admin() {
+function Admin() {
 const [value,setValue] = useState(0);
 
   return (
@@ -13,24 +13,32 @@ const [value,setValue] = useState(0);
     <div className="">
     <div className="row">
       <div className="col-3" style={{"backgroundColor":"violet"}}>
-        <ul>
+        <ul className='my-3'>
         <li>
         <Link to="/adminPage">
+          <h5>
         Dashboard
+        </h5>
         </Link>
         </li> 
         <li>
         <Link to="/adminPage" onClick={()=>{
             setValue(1);
         }}>
+          <h5>
         Voters
+        </h5>
         </Link>
         </li> 
         <li>
+          <h5>
         Candidates
+        </h5>
         </li>   
         <li>
-        Positions   
+          <h5>
+        Positions
+        </h5>   
         </li> 
         
         </ul>
@@ -38,7 +46,7 @@ const [value,setValue] = useState(0);
         
     
       </div>
-      <div className="col-9"  style={{"backgroundColor":"green"}}>
+      <div className="col-9"  style={{"backgroundColor":"whitesmoke"}}>
       {value===1 && <Voters/>}
       </div>
     </div>
@@ -46,4 +54,4 @@ const [value,setValue] = useState(0);
   )
 }
 
-export default admin
+export default Admin
