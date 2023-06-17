@@ -1,11 +1,12 @@
 import React from 'react'
 import {Link} from 'react-router-dom'
 
-function LoginForm() {
+function LoginForm(props) {
   return (
     <div className='my-4'>
     <h3>
-      Login As an Admin
+
+      Login As an {props.temp === 1 ? "Admin" : props.temp === 2 ? "Candidate" : "Voter"}
     </h3>
     <form className='container'>
     <div className="mb-3">
