@@ -1,28 +1,92 @@
-import React from 'react'
-import {Link} from 'react-router-dom'
+import React, { useState } from 'react'
+import {Link,useNavigate} from 'react-router-dom'
 
 function LoginForm(props) {
+  let navigate = useNavigate();
+  const [email,setEmail] = useState("");
+  const [password,setPassword] = useState("");
+  
+  const handleSubmitAdmin = async (e)=>{
+    e.preventDefault();
+    const response = await fetch("http://localhost:8000/api/loginAdmin",{
+      method:"POST",
+      headers:{
+        'Content-Type': 'application/json'  
+      },
+
+      body:JSON.stringify(
+        {
+          email:email,
+          password:password
+        }
+      )
+
+    });
+
+    const json = await response.json();
+    console.log(json);
+    if(!json.success){
+      alert("Enter valid credential");
+    }
+    if(json.success){
+      localStorage.setItem("AdminEmail",email);
+      localStorage.setItem("authToken",json.authToken);
+      console.log(localStorage.getItem("authToken"));
+      navigate("/adminPage")
+    }
+  }
+  const handleSubmitUser = async (e)=>{
+    e.preventDefault();
+    const response = await fetch("http://localhost:8000/api/loginUser",{
+      method:"POST",
+      headers:{
+        'Content-Type': 'application/json'  
+      },
+
+      body:JSON.stringify(
+        {
+          email:email,
+          password:password
+        }
+      )
+
+    });
+
+    const json = await response.json();
+    console.log(json);
+    if(!json.success){
+      alert("Enter valid credential");
+    }
+    if(json.success){
+      localStorage.setItem("AdminEmail",email);
+      localStorage.setItem("authToken",json.authToken);
+      console.log(localStorage.getItem("authToken"));
+      navigate("/")
+    }
+  }
+
   return (
     <div className='my-4'>
     <h3>
 
-      Login As an {props.temp === 1 ? "Admin" : props.temp === 2 ? "Candidate" : "Voter"}
+      Login As an {props.temp === 1 ? "Admin" : "User"}
     </h3>
-    <form className='container'>
+    <form className='container'  onSubmit={props.temp===1 ? handleSubmitAdmin : handleSubmitUser }>
     <div className="mb-3">
       <label  className="form-label">Email address</label>
-      <input type="email" className="form-control" id="exampleInputEmail1" aria-describedby="emailHelp"/>
-    </div>
+      <input type="email" className="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" name='email' value={email} onChange={(e)=>{setEmail(e.target.value)}}/>
+    </div>  
     <div className="mb-3">
       <label for="exampleInputPassword1" className="form-label">Password</label>
-      <input type="password" className="form-control" id="exampleInputPassword1"/>
+      <input type="password" className="form-control" id="exampleInputPassword1" name='password' value={password} onChange={(e)=>{setPassword(e.target.value)}}/>
     </div>
-    <Link to="/adminPage">
+    
     <button type="submit" className="btn btn-primary mx-3">Submit</button>
-    </Link>
-    <Link to="/signUp">
+    
+    {props.temp !== 1 && <Link to="/signUp">
     <button type="submit" className="btn btn-danger mx-3 ">I'm new user</button>
-    </Link>
+    </Link>}
+    
     </form></div>
   )
 }

@@ -15,11 +15,15 @@ const userSchema = new mongoose.Schema({
     type: String,
     required: true
   },
-  isActive: {
+  isCandidate: {
+    type: Boolean,
+    // required: tr
+  },
+  isVoter: {
     type: Boolean,
     required: true
   },
- Name:{
+ name:{
   type: String,
   required: true
  },
