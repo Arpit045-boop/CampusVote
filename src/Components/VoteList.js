@@ -4,7 +4,7 @@ function VoteList()
 {
     const [voteData, setVoteData] = useState(null);
     const getResponse = async () => {
-      const fetch_voteData = await fetch("http://localhost:8000/api/getVotes");
+      const fetch_voteData = await fetch("https://kaskalskal.onrender.com/api/getVotes");
       setVoteData(await fetch_voteData.json());
     //   console.log(voteData);
     }

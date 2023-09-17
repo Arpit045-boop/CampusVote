@@ -22,7 +22,7 @@ function Elections() {
   const handleDelete = async (id)=>{
     if (window.confirm("Do you really want to delete the candidate?")) {
       try{
-        await axios.delete(`http://localhost:8000/api/deleteCandidate/${id}`)
+        await axios.delete(`https://kaskalskal.onrender.com/api/deleteCandidate/${id}`)
         .then(()=>{
           alert("Candidate Delete Successfully");
           
@@ -47,9 +47,9 @@ function Elections() {
     setSelectedElectionName(value);
   }
   const getResponse = async () => {
-    const res = await fetch("http://localhost:8000/api/getElectionData")
-    const fetch_candidateData = await fetch("http://localhost:8000/api/getCandidateData");
-    const fetch_userData = await fetch("http://localhost:8000/api/getUserData");
+    const res = await fetch("https://kaskalskal.onrender.com/api/getElectionData")
+    const fetch_candidateData = await fetch("https://kaskalskal.onrender.com/api/getCandidateData");
+    const fetch_userData = await fetch("https://kaskalskal.onrender.com/api/getUserData");
     setCandidate(await fetch_candidateData.json());
     setResponse(await res.json());
     setUserData(await fetch_userData.json());
@@ -57,7 +57,7 @@ function Elections() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const response = await fetch("http://localhost:8000/api/createCandidate", {
+    const response = await fetch("https://kaskalskal.onrender.com/api/createCandidate", {
       method: "POST",
       headers: {
         'Content-Type': 'application/json'
@@ -81,10 +81,10 @@ function Elections() {
       alert("Please enter valid data")
     }
     if (resp.success) {
-      const fetchNewCandidateData = await fetch("http://localhost:8000/api/getCandidateData");
+      const fetchNewCandidateData = await fetch("https://kaskalskal.onrender.com/api/getCandidateData");
 
       setNewCandidate(await fetchNewCandidateData.json());
-      const userResponse = await fetch("http://localhost:8000/api/updateUser", {
+      const userResponse = await fetch("https://kaskalskal.onrender.com/api/updateUser", {
         method: "PATCH",
         headers: {
           'Content-Type': 'application/json'
@@ -101,7 +101,7 @@ function Elections() {
       
 
 
-      const electionResponse = await fetch("http://localhost:8000/api/updateElectionData", {
+      const electionResponse = await fetch("https://kaskalskal.onrender.com/api/updateElectionData", {
         method: "PATCH",
         headers: {
           'Content-Type': 'application/json'

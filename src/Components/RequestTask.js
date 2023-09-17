@@ -9,7 +9,7 @@ function RequestTask() {
   const [showConfirmation, setshowConfirmation] = useState(false);
   const [TaskId, setTaskId] = useState(null);
   const getResponse = async () => {
-    const fetch_RequestTask = await fetch("http://localhost:8000/api/getTask");
+    const fetch_RequestTask = await fetch("https://kaskalskal.onrender.com/api/getTask");
     setTasks(await fetch_RequestTask.json());
   }
 

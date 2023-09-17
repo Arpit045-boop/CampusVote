@@ -23,8 +23,8 @@ function CandidatePage() {
 
   const getResponse = async () => {
     try {
-      const fetch_userData = await fetch("http://localhost:8000/api/getUserData");
-      const fetch_postData = await fetch("http://localhost:8000/api/getPost");
+      const fetch_userData = await fetch("https://kaskalskal.onrender.com/api/getUserData");
+      const fetch_postData = await fetch("https://kaskalskal.onrender.com/api/getPost");
       // console.log(img);
       setPostData(await fetch_postData.json());
       setUserData(await fetch_userData.json());
@@ -49,7 +49,7 @@ function CandidatePage() {
 
   const handleClick = async (e) => {
     e.preventDefault();
-    const addPost = await fetch("http://localhost:8000/api/createPost", {
+    const addPost = await fetch("https://kaskalskal.onrender.com/api/createPost", {
       method: "POST",
       headers: {
         'Content-Type': 'application/json'

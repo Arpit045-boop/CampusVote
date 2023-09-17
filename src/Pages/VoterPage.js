@@ -16,10 +16,10 @@ function VoterPage() {
 
   const [electionName, setElectionName] = useState("");
   const getData = async () => {
-    const response = await fetch("http://localhost:8000/api/getElectionData");
-    const fetchCandidateData = await fetch("http://localhost:8000/api/getCandidateData");
-    const fetch_postData = await fetch("http://localhost:8000/api/getPost");
-    const fetch_userData = await fetch("http://localhost:8000/api/getUserData");
+    const response = await fetch("https://kaskalskal.onrender.com/api/getElectionData");
+    const fetchCandidateData = await fetch("https://kaskalskal.onrender.com/api/getCandidateData");
+    const fetch_postData = await fetch("https://kaskalskal.onrender.com/api/getPost");
+    const fetch_userData = await fetch("https://kaskalskal.onrender.com/api/getUserData");
     setUserData(await fetch_userData.json());
     setPostData(await fetch_postData.json());  
     setElectionData(await response.json());
@@ -32,7 +32,7 @@ function VoterPage() {
 
   const handleSubmit = async (e)=>{
     e.preventDefault();
-    const response = await fetch("http://localhost:8000/api/createTask",{
+    const response = await fetch("https://kaskalskal.onrender.com/api/createTask",{
       method:"POST",
       headers:{
         'Content-Type': 'application/json'  

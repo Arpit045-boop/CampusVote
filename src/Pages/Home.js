@@ -6,7 +6,7 @@ import PostCard from '../Components/PostCard'
 function Home() {
   const[postData,setPostData] = useState(null);
   const getResponse = async ()=>{
-    const fetch_postData = await fetch("http://localhost:8000/api/getPost");
+    const fetch_postData = await fetch("https://kaskalskal.onrender.com/api/getPost");
     // console.log(img);
     setPostData(await fetch_postData.json());
   }

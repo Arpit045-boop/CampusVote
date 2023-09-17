@@ -7,7 +7,7 @@ function SignUp() {
     const handleSubmit = async (e) => {
         e.preventDefault();
         // console.log(userData);
-        const response = await fetch("http://localhost:8000/api/createUser", {
+        const response = await fetch("https://kaskalskal.onrender.com/api/createUser", {
             method: "POST",
             headers: {
                 'Content-Type': 'application/json'
@@ -32,7 +32,7 @@ function SignUp() {
         }
         if(json.success){
             if (userData.isVoter === true) {
-                const responseIsVoter = await fetch("http://localhost:8000/api/createVoter", {
+                const responseIsVoter = await fetch("https://kaskalskal.onrender.com/api/createVoter", {
                     method: "POST",
                     headers: {
                         'Content-Type': 'application/json'

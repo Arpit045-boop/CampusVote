@@ -10,7 +10,7 @@ function PostCard(props) {
 
 
     const getResponse = async ()=>{
-        const fetch_candidateData = await fetch("http://localhost:8000/api/getCandidateData");
+        const fetch_candidateData = await fetch("https://kaskalskal.onrender.com/api/getCandidateData");
         setCandidateData(await fetch_candidateData.json());
     }
 

@@ -3,7 +3,7 @@ import React, { useState,useEffect } from 'react'
 function Voters() {
   const [userData,setUserData] = useState(null);
   const getResponse = async () => {
-    const fetch_userData = await fetch("http://localhost:8000/api/getUserData"); 
+    const fetch_userData = await fetch("https://kaskalskal.onrender.com/api/getUserData"); 
     setUserData(await fetch_userData.json());
   }
   useEffect(() => {

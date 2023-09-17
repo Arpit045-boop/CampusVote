@@ -8,8 +8,8 @@ function Elections() {
   const [response, setResponse] = useState(null);
   const [candidate, setCandidate] = useState(null);
   const getResponse = async () => {
-    const res = await fetch("http://localhost:8000/api/getElectionData")
-    const fetch_candidateData = await fetch("http://localhost:8000/api/getCandidateData");
+    const res = await fetch("https://kaskalskal.onrender.com/api/getElectionData")
+    const fetch_candidateData = await fetch("https://kaskalskal.onrender.com/api/getCandidateData");
     setCandidate(await fetch_candidateData.json());
     setResponse(await res.json());
   }

@@ -8,7 +8,7 @@ function ElectionForm() {
     }
     const handleSubmit = async (event) => {
         event.preventDefault();
-        const response = await fetch("http://localhost:8000/api/createElection", {
+        const response = await fetch("https://kaskalskal.onrender.com/api/createElection", {
             method: "POST",
             headers: {
                 'Content-Type': 'application/json'

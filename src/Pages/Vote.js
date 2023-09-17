@@ -13,9 +13,9 @@ function Vote() {
     const [VoterData,setvoterData] = useState(null);
 
      const getResponse = async () => {
-      const fetchElectionData = await fetch("http://localhost:8000/api/getElectionData")
-      const fetch_candidateData = await fetch("http://localhost:8000/api/getCandidateData");
-      const fetch_voterData = await fetch("http://localhost:8000/api/getUserData");
+      const fetchElectionData = await fetch("https://kaskalskal.onrender.com/api/getElectionData")
+      const fetch_candidateData = await fetch("https://kaskalskal.onrender.com/api/getCandidateData");
+      const fetch_voterData = await fetch("https://kaskalskal.onrender.com/api/getUserData");
       setCandidate(await fetch_candidateData.json());
       setelectionData(await fetchElectionData.json());
       setvoterData(await fetch_voterData.json());
@@ -29,7 +29,7 @@ function Vote() {
       const voterObj = VoterData.find(obj=> obj.email === VoterEmail);
       
 
-      const voteData = await fetch("http://localhost:8000/api/createVotes",{
+      const voteData = await fetch("https://kaskalskal.onrender.com/api/createVotes",{
           method:"POST",
           headers: {
             'Content-Type': 'application/json'
