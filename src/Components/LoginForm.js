@@ -1,10 +1,16 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import {Link,useNavigate} from 'react-router-dom'
+import './loginPage.css';
 
 function LoginForm(props) {
   let navigate = useNavigate();
   const [email,setEmail] = useState("");
   const [password,setPassword] = useState("");
+  const [userData, setUserData] = useState(null);
+  const getResponse = async()=>{
+    const fetch_userData = await fetch("http://localhost:8000/api/getUserData");
+    setUserData(await fetch_userData.json());
+  }
   
   const handleSubmitAdmin = async (e)=>{
     e.preventDefault();
@@ -31,10 +37,11 @@ function LoginForm(props) {
     if(json.success){
       localStorage.setItem("AdminEmail",email);
       localStorage.setItem("authToken",json.authToken);
-      console.log(localStorage.getItem("authToken"));
+      // console.log(localStorage.getItem("AdminEmail"));
       navigate("/adminPage")
     }
   }
+
   const handleSubmitUser = async (e)=>{
     e.preventDefault();
     const response = await fetch("http://localhost:8000/api/loginUser",{
@@ -58,17 +65,30 @@ function LoginForm(props) {
       alert("Enter valid credential");
     }
     if(json.success){
-      localStorage.setItem("AdminEmail",email);
+      localStorage.setItem("UserEmail",email);
       localStorage.setItem("authToken",json.authToken);
-      console.log(localStorage.getItem("authToken"));
-      navigate("/")
+      // console.log(localStorage.getItem("UserEmail"));
+      const userObj = userData.find(obj=> obj.email === email);
+      if(userObj.isCandidate === true){
+        navigate("/candidatePage");
+      }
+      else{
+        navigate("/voterPage");
+      }
+      
     }
   }
+  
+  useEffect(()=>{
+    getResponse();
+  },[])
+
 
   return (
-    <div className='my-4'>
+   
+    <div>
+    <div className='login' >
     <h3>
-
       Login As an {props.temp === 1 ? "Admin" : "User"}
     </h3>
     <form className='container'  onSubmit={props.temp===1 ? handleSubmitAdmin : handleSubmitUser }>
@@ -87,7 +107,9 @@ function LoginForm(props) {
     <button type="submit" className="btn btn-danger mx-3 ">I'm new user</button>
     </Link>}
     
-    </form></div>
+    </form>
+    </div>
+    </div>
   )
 }
 

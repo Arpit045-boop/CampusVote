@@ -11,3 +11,40 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+.electionForm{
+  background-color: blanchedalmond;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 30px;
+  padding-bottom: 10px;
+  width: fit-content;
+  height: fit-content;
+}
+.divLabel{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+/* .addElectionButton{
+  width: fit-content;
+  margin-left: auto;
+  margin-right: 20px;
+} */
+.voterPageButtons{
+  display: flex;
+  flex-direction: row;
+  width: fit-content;
+  margin: auto;
+
+}
+.nomineeDiv{
+  display: flex;
+  align-items: center;
+  margin-top: 10px;
+}
+.buttonCandidate{
+  margin-left: auto;
+  margin-right: 20px;
+}

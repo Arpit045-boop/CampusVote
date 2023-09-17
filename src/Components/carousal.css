@@ -1,0 +1,14 @@
+.d-block{
+    width: 500px;
+    height: 500px;
+}
+.carousel-caption {
+    margin-bottom: 200px;
+    background-color:slategray;
+  }
+  .carousalh3{
+    font-size: 80px;
+    font-weight: bolder;
+    font-family:Georgia, 'Times New Roman', Times, serif;
+    color: brown;
+  }

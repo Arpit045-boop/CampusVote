@@ -1,0 +1,47 @@
+.login{
+    background-color: wheat;
+    width:fit-content;
+    /* margin: 40px 300px 0 300px; */
+    margin: auto;
+    margin-top: 8%;
+    padding: 50px;
+}
+.form-control{
+    width: auto;
+    margin:auto;
+}
+.signup{
+    background-color:skyblue;
+    width: fit-content;
+    margin: auto;
+    padding: 30px;
+
+}
+.adminMenu{
+    background-color: black;
+}
+.listMenu{
+    color: black;
+    background-color:thistle;
+}
+.listMenu h5{
+    font-size:larger;
+    font-weight: bolder;
+    color:teal;
+}
+.listMenuRes{
+    color: black;
+    background-color:thistle;
+}
+.listMenuRes h5{
+    font-size: small;
+    font-weight: bolder;
+    color:teal;
+}
+a{
+    text-decoration:none;
+}
+
+.hover-cursor:hover{
+    cursor: pointer;
+}

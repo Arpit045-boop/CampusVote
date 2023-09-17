@@ -2,14 +2,21 @@ const express = require('express');
 const router = express.Router()
 const { body, validationResult } = require('express-validator');
 const User = require("../models/Users");
+const Admin = require("../models/AdminData");
 
 const jsonwebtoken = require('jsonwebtoken');
 const bcryptjs = require('bcrypt');
+const dotenv = require("dotenv");
 
-const jwtSecret =  "asdfghjklzxcrt";
+dotenv.config();
+
+
+const jwtSecret = process.env.SECRET_KEY  ;
 
 router.get("/getUserData",async(req,res)=>{
     try{
+        const isVoter = req.query.isVoter;
+        const isCandidate = req.query.isCandidate;
         const userData = await User.find({});
         if(userData){
             res.send(userData);
@@ -28,19 +35,30 @@ router.get("/getUserData",async(req,res)=>{
 
 router.post("/createUser",[
     body('email').isEmail(),
-    body('password').isLength({min:5})
+    body('password').isLength({min:5}),
+    body('dateOfBirth').isISO8601()
 ],
     async (req,res)=>{
         const error = validationResult(req);
         if(!error.isEmpty()){
             return res.status(400).json({error:error.array()});
         }
+        // Validate age
+        const dateOfBirth =  new Date(req.body.dateOfBirth);
+        const currentDate = new Date();
+        const userAge = currentDate.getFullYear() - dateOfBirth.getFullYear();
+        const isUserAbove18 = currentDate.getMonth() >= dateOfBirth.getMonth() && currentDate.getDate() >= dateOfBirth.getDate();
+
+        if(userAge < 18 || (!isUserAbove18 && userAge === 18)){
+            return res.status(400).json({error:"Your age is not above 18"});
+        }        
+
         const salt = await bcryptjs.genSalt(10);
         const secPassword = await bcryptjs.hash(req.body.password,salt);
         try{
             await User.create(
                 {
-                    username:req.body.username,
+                    voterId:req.body.voterId,
                     email: req.body.email,
                     name: req.body.name,
                     dateOfBirth: req.body.dateOfBirth,
@@ -111,35 +129,28 @@ router.post("/loginAdmin",[
         }
         let arr=[];
         let userData = {};
-        let email = req.body.email;
+        // let email = req.body.email;
         try{
-            AdminData.map((data,index)=>{
-                arr.push(data.email);
-            })
-            if(!arr.includes(email)){
+            const adminObj =await Admin.findOne({email: req.body.email});
+            console.log(adminObj);
+            if(adminObj){
+                console.log("Correct Email");
+            }
+            else{
                 return res.status(400).json({error:"Please check credentials"});
             }
-            AdminData.map((data,index)=>{
-                if(data.email === email){
-                    userData = data;
-                }
-            })
-            
-            // console.log(userData.password);
-            // console.log(req.body.password);
-
-            if(! (userData.password === req.body.password)){
-                // console.log(userData.password);
+            if(! (adminObj.password === req.body.password)){
+                
                 return res.status(400).json({error:"Please check credentials"});
             }
             const data = {
-                AdminData:{
-                    id:AdminData._id
+                Admin:{
+                    id:Admin._id
                 }
             }
             const authToken = jsonwebtoken.sign(data,jwtSecret)
             // console.log(authToken);
-            return res.send({success:true,authToken:authToken})
+            return res.send({success:true})
             
             
 

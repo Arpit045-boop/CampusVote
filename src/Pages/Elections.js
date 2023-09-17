@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import Navbar from '../Components/Navbar'
+
 import "./election.css"
 import { Link } from 'react-router-dom'
 
@@ -13,24 +13,24 @@ function Elections() {
     setCandidate(await fetch_candidateData.json());
     setResponse(await res.json());
   }
-
   useEffect(() => {
     getResponse();  
   }, [])
 
-
   return (
     <div>
       <div className='election'>
-        <div className='d-flex-inline'>
-          <h4 className='mt-3' style={{ display: "inline" }}>
-            List Of Elections
+        <div className='nomineeDiv'>
+          <h4 className='mx-3'>
+            Elections List
           </h4>
-          <Link to="/electionForm" className='mt-3' style={{ display: "inline-block", marginLeft: "780px" }}>
+          <div className='buttonCandidate'>
+          <Link to="/electionForm" className='mt-3'>
             <button className='btn btn-success'>
               Add Election Form
             </button>
           </Link>
+          </div>
         </div>
         <div className='m-3 py-3'>
           <table className="table table-dark table-striped">
@@ -46,21 +46,21 @@ function Elections() {
             
               {response && response.map((item,index) => {
                 // console.log(item);
-                const CandidateNames = [];
+                
                 const startdate = new Date(item.startdate);
                 const endDate = new Date(item.enddate);
-                const candidateId = item.candidateIds;
-                candidateId && candidateId.map((item1,index1)=>{
-                  const candidateObj = candidate.find(obj=> obj._id === item1);
-                  if(candidateObj){
-                    const candidateName = candidateObj.name;
-                    CandidateNames.push(candidateName);
-                  }
-                  else{
-                    console.log("No Candidate Found");
-                  }
-                })
-
+                const electionId = item._id;
+                const candidateObj = candidate.filter(obj=> obj.electionId === electionId );
+               
+                var candidateName = [];
+                if(candidateObj){
+                  candidateObj.map((item,index)=>{
+                    candidateName.push(item.name)
+                  })  
+                }
+                else{
+                  candidateName = "No Candidate Found";
+                }
                 
                 return (
                   <tbody>
@@ -69,7 +69,7 @@ function Elections() {
                     <td>{item.name}</td>
                     <td>{startdate.toLocaleDateString()}</td>
                     <td>{endDate.toLocaleDateString()}</td>
-                    <td>{CandidateNames+""}</td>
+                    <td>{candidateName+""}</td>
                   </tr>
                   </tbody>
                 )

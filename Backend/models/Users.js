@@ -1,10 +1,10 @@
 const mongoose = require('mongoose');
 // Voters or students models
 const userSchema = new mongoose.Schema({
-  username: {
+  voterId: {
     type: String,
     required: true,
-    unique: true
+    // unique: true
   },
   email: {
     type: String,

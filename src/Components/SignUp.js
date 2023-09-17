@@ -3,7 +3,7 @@ import { Link, useNavigate } from 'react-router-dom'
 
 function SignUp() {
     let navigate = useNavigate();
-    const [userData, setUserData] = useState({ username: "", email: "", name: "", dateOfBirth: "", password: "", isVoter: false })
+    const [userData, setUserData] = useState({ voterId: "", email: "", name: "", dateOfBirth: "", password: "", isVoter: false })
     const handleSubmit = async (e) => {
         e.preventDefault();
         // console.log(userData);
@@ -16,10 +16,10 @@ function SignUp() {
                 {
                     email: userData.email,
                     password: userData.password,
-                    username: userData.username,
+                    voterId: userData.voterId,
                     name: userData.name,
                     dateOfBirth: userData.dateOfBirth,
-                    isVoter: userData.isVoter
+                    isVoter: true
                 }
             )
         })
@@ -31,6 +31,30 @@ function SignUp() {
             alert("Please enter valid data")
         }
         if(json.success){
+            if (userData.isVoter === true) {
+                const responseIsVoter = await fetch("http://localhost:8000/api/createVoter", {
+                    method: "POST",
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(
+                        {
+                            userName: userData.name,
+                            voterId: "Will be Update"
+                        }
+                    )
+
+                });
+
+                const respIsVoter = await responseIsVoter.json();
+                console.log("hjgj"+respIsVoter);
+                if (!respIsVoter) {
+                    alert("Please enter valid data");
+                }
+                if (respIsVoter) {
+                    alert("Voter added successfully");
+                }
+            }
             navigate("/");
         }
 
@@ -41,7 +65,7 @@ function SignUp() {
         setUserData({ ...userData, [e.target.name]: e.target.value });
     }
     return (
-        <div className='my-4 '>
+        <div className='my-4 signup'>
             <h3>
                 Create your Profile
             </h3>
@@ -49,8 +73,8 @@ function SignUp() {
 
             <form className='container' onSubmit={handleSubmit}>
                 <div className="mb-3">
-                    <label className="form-label">UserName</label>
-                    <input type="text" className="form-control" name='username' value={userData.username}
+                    <label className="form-label">VoterId</label>
+                    <input type="text" className="form-control" name='voterId'  value={userData.voterId}
                         onChange={handleChange} />
                 </div>
                 <div className="mb-3">
@@ -77,7 +101,7 @@ function SignUp() {
                     />
                 </div>
                 <div className='row'>
-                <div className='col-6' style={{ marginBottom: "20px" }}>
+                {/* <div className='col-6' style={{ marginBottom: "20px" }}>
                     <div>
                         <label className="form-label">Voter</label>
                     </div>
@@ -89,7 +113,7 @@ function SignUp() {
                         setUserData({ ...userData, [e.target.name]: false });
                         // console.log(userData.isVoter);
                     }} /> No
-                </div>
+                </div> */}
                 
                 </div>
 
