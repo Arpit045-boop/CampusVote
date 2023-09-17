@@ -14,7 +14,7 @@ function LoginForm(props) {
   
   const handleSubmitAdmin = async (e)=>{
     e.preventDefault();
-    const response = await fetch("http://localhost:8000/api/loginAdmin",{
+    const response = await fetch("https://kaskalskal.onrender.com/api/loginAdmin",{
       method:"POST",
       headers:{
         'Content-Type': 'application/json'  
@@ -44,7 +44,7 @@ function LoginForm(props) {
 
   const handleSubmitUser = async (e)=>{
     e.preventDefault();
-    const response = await fetch("http://localhost:8000/api/loginUser",{
+    const response = await fetch("https://kaskalskal.onrender.com/api/loginUser",{
       method:"POST",
       headers:{
         'Content-Type': 'application/json'  
